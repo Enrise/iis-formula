@@ -21,6 +21,8 @@ main_webroot:
     - home: {{ vhost_webroot }}
     - createhome: True
     - win_description: 'Web user for {{ vhost }}'
+    - win_password_never_expires: True
+    - win_disallow_change_password: True    
 
 # Create Webroot (createHome: True doesn't appear to be doing this)
 {{ vhost }}_webroot:
