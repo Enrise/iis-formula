@@ -12,10 +12,8 @@ before_install:
 
 matrix:
   include:
-    - script:
-      - Powershell.exe -ExecutionPolicy Bypass -File bootstrap-salt.ps1 -version 2019.2.0 -pythonVersion 2 -runservice true
-    - script:
-      - Powershell.exe -ExecutionPolicy Bypass -File bootstrap-salt.ps1 -version 2019.2.0 -pythonVersion 3 -runservice true
+    - script: Powershell.exe -ExecutionPolicy Bypass -File bootstrap-salt.ps1 -version 2019.2.0 -pythonVersion 2 -runservice true
+    - script: Powershell.exe -ExecutionPolicy Bypass -File bootstrap-salt.ps1 -version 2019.2.0 -pythonVersion 3 -runservice true
 
 install:
 #  - sudo mkdir -p /srv && sudo ln -sfn $PWD /srv/formula
