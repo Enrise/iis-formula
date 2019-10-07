@@ -27,7 +27,6 @@ install:
 script:
   - sudo -E salt-call state.show_sls $STATE $SALT_ARGS
   - sudo -E salt-call state.sls $STATE $SALT_ARGS
-
   # Idempotence check
   - sudo -E salt-call state.sls $STATE $SALT_ARGS > /tmp/second
   - cat /tmp/second
