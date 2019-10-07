@@ -6,29 +6,29 @@ env:
     - STATE=iis
     - SALT_ARGS="-l debug --local --retcode-passthrough --pillar-root=.salt/pillar --file-root=."
 
-#matrix:
-#  include:
-#    - python: 2.7
-#      env: PYTHONVERSION=python2.7 SALT_ARGS="-l debug --local --retcode-passthrough --pillar-root=.salt/pillar/stable --file-root=$PWD"
-#    - python: 3.7
-#      env: PYTHONVERSION=python3.7 SALT_ARGS="-l debug --local --retcode-passthrough --pillar-root=.salt/pillar/stable --file-root=$PWD"
-
 before_install:
   - curl -L https://raw.githubusercontent.com/saltstack/salt-bootstrap/stable/bootstrap-salt.ps1 -o bootstrap-salt.ps1
-  - Powershell.exe -ExecutionPolicy Bypass -File bootstrap-salt.ps1 -version 2019.2.0 -pythonVersion 3 -runservice true
+  #- Powershell.exe -ExecutionPolicy Bypass -File bootstrap-salt.ps1 -version 2019.2.0 -pythonVersion 3 -runservice true
+
+matrix:
+  include:
+    - script:
+      - Powershell.exe -ExecutionPolicy Bypass -File bootstrap-salt.ps1 -version 2019.2.0 -pythonVersion 2 -runservice true
+    - script:
+      - Powershell.exe -ExecutionPolicy Bypass -File bootstrap-salt.ps1 -version 2019.2.0 -pythonVersion 3 -runservice true
 
 install:
 #  - sudo mkdir -p /srv && sudo ln -sfn $PWD /srv/formula
   # Show the loaded pillars since the states are generally depending on this
-  - sudo salt-call pillar.items $SALT_ARGS
+  - salt-call pillar.items $SALT_ARGS
   # See what kind of travis box you're on to help with making your states
   # compatible with travis
-  - sudo salt-call grains.items $SALT_ARGS
+  - salt-call grains.items $SALT_ARGS
 
 script:
-  - sudo -E salt-call state.show_sls $STATE $SALT_ARGS
-  - sudo -E salt-call state.sls $STATE $SALT_ARGS
+  - salt-call state.show_sls $STATE $SALT_ARGS
+  - salt-call state.sls $STATE $SALT_ARGS
   # Idempotence check
-  - sudo -E salt-call state.sls $STATE $SALT_ARGS > /tmp/second
+  - salt-call state.sls $STATE $SALT_ARGS > /tmp/second
   - cat /tmp/second
   - bash -c '! grep -q "^Not Run:" /tmp/second'
