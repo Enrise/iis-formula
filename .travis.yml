@@ -13,16 +13,17 @@ before_install:
 install:
 #  - sudo mkdir -p /srv && sudo ln -sfn $PWD /srv/formula
   # Show the loaded pillars since the states are generally depending on this
-  - salt-call pillar.items $SALT_ARGS
+  - c:\salt\salt-call.bat pillar.items \$SALT_ARGS
   # See what kind of travis box you're on to help with making your states
   # compatible with travis
-  - salt-call grains.items $SALT_ARGS
+  - c:\salt\salt-call.bat grains.items \$SALT_ARGS
 
 script:
-  - salt-call state.show_sls $STATE $SALT_ARGS
-  - salt-call state.sls $STATE $SALT_ARGS
+  - cd
+  - c:\salt\salt-call.bat state.show_sls \$STATE \$SALT_ARGS
+  - c:\salt\salt-call.bat state.sls \$STATE \$SALT_ARGS
 
   # Idempotence check
-  - salt-call state.sls $STATE $SALT_ARGS > /tmp/second
+  - c:\salt\salt-call.bat state.sls \$STATE \$SALT_ARGS > /tmp/second
   - cat /tmp/second
   - bash -c '! grep -q "^Not Run:" /tmp/second'
