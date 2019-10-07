@@ -1,4 +1,5 @@
 os: windows
+language: bash
 
 env:
   global:
@@ -14,7 +15,7 @@ env:
 
 before_install:
   - curl -L https://raw.githubusercontent.com/saltstack/salt-bootstrap/stable/bootstrap-salt.ps1 -o bootstrap-salt.ps1
-  - ./bootstrap-salt.ps1 -minion -version 2019.2.0 -pythonVersion 3 -runservice true
+  - ./bootstrap-salt.ps1 -version 2019.2.0 -pythonVersion 3 -runservice true
 
 install:
 #  - sudo mkdir -p /srv && sudo ln -sfn $PWD /srv/formula
