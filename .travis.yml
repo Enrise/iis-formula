@@ -3,7 +3,7 @@ language: bash
 
 before_install:
   - curl -L https://raw.githubusercontent.com/saltstack/salt-bootstrap/stable/bootstrap-salt.ps1 -o bootstrap-salt.ps1
-  - Powershell.exe -ExecutionPolicy Bypass -File bootstrap-salt.ps1 -version 2019.2.0 -pythonVersion 2 -runservice true
+  - Powershell.exe -ExecutionPolicy Bypass -File bootstrap-salt.ps1 -version 2019.2.0 -pythonVersion 3 -runservice true
 
 install:
 #  - sudo mkdir -p /srv && sudo ln -sfn $PWD /srv/formula
