@@ -1,5 +1,6 @@
 os: windows
-language: bash
+#language: bash
+language: c
 
 before_install:
   - curl -L https://raw.githubusercontent.com/saltstack/salt-bootstrap/stable/bootstrap-salt.ps1 -o bootstrap-salt.ps1
