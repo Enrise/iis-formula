@@ -1,8 +1,9 @@
 os: windows
-#language: bash
-language: c
+language: bash
 
 before_install:
+  - powershell "(Get-WMIObject win32_operatingsystem).name"
+  - powershell "(Get-WMIObject win32_operatingsystem)"
   - curl -L https://raw.githubusercontent.com/saltstack/salt-bootstrap/stable/bootstrap-salt.ps1 -o bootstrap-salt.ps1
   - Powershell.exe -ExecutionPolicy Bypass -File bootstrap-salt.ps1 -version 2019.2.0 -pythonVersion 3 -runservice true
 
