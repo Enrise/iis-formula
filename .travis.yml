@@ -4,13 +4,12 @@ language: bash
 before_install:
   - powershell "(Get-WMIObject win32_operatingsystem).name"
   - powershell "(Get-WMIObject win32_operatingsystem)"
+  - powershell "$(get-wmiobject win32_operatingsystem).caption"
   - curl -L https://raw.githubusercontent.com/saltstack/salt-bootstrap/stable/bootstrap-salt.ps1 -o bootstrap-salt.ps1
   - Powershell.exe -ExecutionPolicy Bypass -File bootstrap-salt.ps1 -version 2019.2.3 -pythonVersion 3 -runservice true
 
 install:
-#  - sudo mkdir -p /srv && sudo ln -sfn $PWD /srv/formula
-  # See what kind of travis box you're on to help with making your states
-  # compatible with travis
+  # See what kind of travis box you're on to help with making your states compatible with travis
   - c:\\salt\\salt-call.bat grains.items -l debug --local --retcode-passthrough --pillar-root=.salt/pillar --file-root=.
   # Show the loaded pillars since the states are generally depending on this
   - c:\\salt\\salt-call.bat pillar.items -l debug --local --retcode-passthrough --pillar-root=.salt/pillar --file-root=.
